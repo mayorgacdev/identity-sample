@@ -9,12 +9,13 @@ public class AuthDbContext : IdentityDbContext<ApplicationCustomUser, IdentityCu
     public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
     {
     }
-    
+
     override protected void OnModelCreating(ModelBuilder builder)
     {
+        base.OnModelCreating(builder);
         builder.Entity<ApplicationCustomUserRole>().ToTable("UserRoles");
         builder.Entity<ApplicationCustomUser>().ToTable("Users");
         builder.Entity<IdentityCustomRole>().ToTable("Roles");
-        base.OnModelCreating(builder);
+
     }
 }

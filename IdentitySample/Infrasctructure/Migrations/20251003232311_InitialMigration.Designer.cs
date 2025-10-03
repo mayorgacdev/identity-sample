@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IdentitySample.Infrasctructure.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20251003231548_InitialMigration")]
+    [Migration("20251003232311_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -91,7 +91,7 @@ namespace IdentitySample.Infrasctructure.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("IdentitySample.Entities.Auth.IdentityCustomRole", b =>
@@ -122,7 +122,7 @@ namespace IdentitySample.Infrasctructure.Migrations
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -147,8 +147,6 @@ namespace IdentitySample.Infrasctructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-
-                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
@@ -232,17 +230,6 @@ namespace IdentitySample.Infrasctructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("IdentitySample.Entities.Auth.IdentityCustomRoleClaim", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>");
-
-                    b.Property<string>("CompanyName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.ToTable("RoleClaims", (string)null);
-                });
-
             modelBuilder.Entity("IdentitySample.Entities.Auth.ApplicationCustomUserRole", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>");
@@ -300,15 +287,6 @@ namespace IdentitySample.Infrasctructure.Migrations
                     b.HasOne("IdentitySample.Entities.Auth.ApplicationCustomUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("IdentitySample.Entities.Auth.IdentityCustomRoleClaim", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", null)
-                        .WithOne()
-                        .HasForeignKey("IdentitySample.Entities.Auth.IdentityCustomRoleClaim", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
