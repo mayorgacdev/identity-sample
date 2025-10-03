@@ -15,7 +15,6 @@ public class AuthDbContext : IdentityDbContext<ApplicationCustomUser, IdentityCu
         builder.Entity<ApplicationCustomUserRole>().ToTable("UserRoles");
         builder.Entity<ApplicationCustomUser>().ToTable("Users");
         builder.Entity<IdentityCustomRole>().ToTable("Roles");
-        builder.Entity<IdentityCustomRoleClaim>().ToTable("RoleClaims");
         base.OnModelCreating(builder);
     }
 }
